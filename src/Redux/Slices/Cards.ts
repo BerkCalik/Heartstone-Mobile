@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import type {RootState} from '../';
+import {RootState} from '../';
 import {ICard} from '../../Types/Cards';
 
 export interface IState {
