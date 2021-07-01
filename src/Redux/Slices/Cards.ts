@@ -24,13 +24,16 @@ const cards = createSlice({
     updateFilteredList: (state, action) => {
       state.filteredList = action.payload;
     },
+    fillFilteredListAll: (state) => {
+      state.filteredList = [...state.list]
+    },
     updateSelected: (state, action) => {
       state.selected = action.payload;
     },
   },
 });
 
-export const {updateList, updateFilteredList, updateSelected} = cards.actions;
+export const {updateList, updateFilteredList, updateSelected, fillFilteredListAll} = cards.actions;
 
 export const selectCards = (state: RootState) => state.cards;
 

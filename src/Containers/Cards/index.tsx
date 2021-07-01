@@ -38,7 +38,7 @@ const Cards = (props: IDefaultScreenProps) => {
 
   const renderListHeader = () => (
     <View style={styles.listHeader}>
-      <Text>Count: {cardList.length}</Text>
+      <Text>Count: {cardList?.length || 0}</Text>
     </View>
   );
 

@@ -1,8 +1,11 @@
 import React from 'react';
-import {StyleSheet, Text, View, TextInput} from 'react-native';
-import {useAppDispatch, useAppSelector} from '../../Redux/Hooks';
+import {StyleSheet, View, TextInput, Alert} from 'react-native';
+import {useAppDispatch} from '../../Redux/Hooks';
 import {debounce} from 'lodash';
-import {updateFilteredList, updateList} from '../../Redux/Slices/Cards';
+import {
+  fillFilteredListAll,
+  updateFilteredList,
+} from '../../Redux/Slices/Cards';
 import {searchCard} from '../../Services';
 
 interface IProps {
@@ -11,16 +14,18 @@ interface IProps {
 
 const SearchBar = (props: IProps) => {
   const dispatch = useAppDispatch();
-  const allCards = useAppSelector(s => s.cards.list);
 
   const onChange = async (q: string) => {
     if (q.trim() == '') {
-      dispatch(updateList(allCards));
+      dispatch(fillFilteredListAll());
     } else {
       props.setLoading(true);
       const res = await searchCard(q);
-      console.log('search', res);
-      dispatch(updateFilteredList(res));
+      if (res == null) {
+        Alert.alert('Error', 'Not found.')
+      } else {
+        dispatch(updateFilteredList(res));
+      }      
       props.setLoading(false);
     }
   };
